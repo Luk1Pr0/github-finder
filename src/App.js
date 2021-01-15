@@ -24,7 +24,7 @@ class App extends Component {
     return (
       <div className='App'>
         <Navbar />
-        <div className="container" style={{ paddingTop: '4rem' }}>
+        <div className="container">
           <Users loading={this.state.loading} users={this.state.users} />
         </div>
       </div>
