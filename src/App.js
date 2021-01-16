@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import Navbar from './Components/Layout/Navbar';
 import Users from './Components/Users/Users';
+import Search from './Components/Users/Search';
 
 class App extends Component {
 
@@ -12,7 +13,7 @@ class App extends Component {
 
   componentDidMount() {
     this.setState({ loading: true });
-    fetch('https://api.github.com/users')
+    fetch(`https://api.github.com/users?client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}&client_secret=${process.env.REACT_APP_GITHUB_CLIENT_SECRET}`)
       .then(resp => resp.json())
       .then(data => {
         this.setState({ users: data, loading: false })
@@ -25,6 +26,7 @@ class App extends Component {
       <div className='App'>
         <Navbar />
         <div className="container">
+          <Search />
           <Users loading={this.state.loading} users={this.state.users} />
         </div>
       </div>
