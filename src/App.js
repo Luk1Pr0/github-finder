@@ -11,12 +11,22 @@ class App extends Component {
     loading: false
   }
 
-  componentDidMount() {
-    this.setState({ loading: true });
-    fetch(`https://api.github.com/users?client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}&client_secret=${process.env.REACT_APP_GITHUB_CLIENT_SECRET}`)
+  // componentDidMount() {
+  //   this.setState({ loading: true });
+  //   fetch(`https://api.github.com/users?client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}&client_secret=${process.env.REACT_APP_GITHUB_CLIENT_SECRET}`)
+  //     .then(resp => resp.json())
+  //     .then(data => {
+  //       this.setState({ users: data, loading: false })
+  //     })
+  //     .catch(err => console.log(err));
+  // }
+
+  // Search Github users
+  searchUsers = (text) => {
+    fetch(`https://api.github.com/search/users?q=${text}&client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}&client_secret=${process.env.REACT_APP_GITHUB_CLIENT_SECRET}`)
       .then(resp => resp.json())
       .then(data => {
-        this.setState({ users: data, loading: false })
+        this.setState({ users: data.items, loading: false })
       })
       .catch(err => console.log(err));
   }
@@ -26,7 +36,7 @@ class App extends Component {
       <div className='App'>
         <Navbar />
         <div className="container">
-          <Search />
+          <Search searchUsers={this.searchUsers} />
           <Users loading={this.state.loading} users={this.state.users} />
         </div>
       </div>
