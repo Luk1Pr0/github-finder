@@ -257,6 +257,7 @@ img {
 .bg-light,
 .badge-light,
 .alert-light {
+  margin-top: 5rem;
   background: var(--light-color);
   color: #333;
 }
