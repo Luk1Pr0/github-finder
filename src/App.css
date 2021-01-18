@@ -257,7 +257,6 @@ img {
 .bg-light,
 .badge-light,
 .alert-light {
-  margin-top: 5rem;
   background: var(--light-color);
   color: #333;
 }
@@ -375,6 +374,10 @@ table th {
 
 .navbar .welcome span {
   margin-right: 0.6rem;
+}
+
+.top-margin-gap {
+  margin-top: 4rem;
 }
 
 /* Mobile Styles */

@@ -7,8 +7,7 @@ const Alert = ({ alert }) => {
                 <i className='fas fa-info-circle'></i> {alert.message}
             </div>
         )
-    )
+    );
 }
-
 
 export default Alert;
