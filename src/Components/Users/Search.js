@@ -29,7 +29,7 @@ class Search extends Component {
     render() {
         const { showClear, clearUsers } = this.props;
         return (
-            <div style={style}>
+            <div className='search-comp' style={style}>
                 <form onSubmit={this.onSubmit} className='form'>
                     <input
                         type="text"
