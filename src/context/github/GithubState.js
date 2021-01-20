@@ -24,15 +24,41 @@ const GithubState = (props) => {
         fetch(`https://api.github.com/search/users?q=${text}&client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}&client_secret=${process.env.REACT_APP_GITHUB_CLIENT_SECRET}`)
             .then(resp => resp.json())
             .then(data => {
-                dispatch({ type: SEARCH_USERS, payload: data });
+                dispatch({ type: SEARCH_USERS, payload: data.items });
             })
             .catch(err => console.log(err));
     };
-    // Get user
 
-    // Get repos
+    // Get single github user
+    const getUser = (username) => {
+        setLoading(true);
+        fetch(`https://api.github.com/users/${username}?&client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}&client_secret=${process.env.REACT_APP_GITHUB_CLIENT_SECRET}`)
+            .then(resp => resp.json())
+            .then(data => {
+                dispatch({
+                    type: GET_USER,
+                    payload: data,
+                });
+            })
+            .catch(err => console.log('Something went wront', err));
+    }
 
-    // Clear Users
+    // Get User repositories
+    const getUserRepos = (username) => {
+        setLoading(true);
+        fetch(`https://api.github.com/users/${username}/repos?per_page=5&sort=created:dsc&client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}&client_secret=${process.env.REACT_APP_GITHUB_CLIENT_SECRET}`)
+            .then(resp => resp.json())
+            .then(data => {
+                dispatch({
+                    type: GET_REPOS,
+                    payload: data
+                });
+            })
+            .catch(err => console.log(err));
+    }
+
+    // Clear users from state
+    const clearUsers = () => dispatch({ type: CLEAR_USERS })
 
     // Set loading
     const setLoading = () => dispatch({ type: SET_LOADING });
@@ -43,7 +69,10 @@ const GithubState = (props) => {
             user: state.user,
             repos: state.repos,
             loading: state.loading,
-            searchUsers
+            searchUsers,
+            clearUsers,
+            getUser,
+            getUserRepos,
         }}
     >
         {props.children}
